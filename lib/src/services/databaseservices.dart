@@ -2,18 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class DatabaseServices {
-  static DatabaseReference bookmarkListRef = FirebaseDatabase.instance
-      .ref("${FirebaseAuth.instance.currentUser!.uid}/bookmarks");
-
   static Future<bool> checkIfBookmarked(String input) async {
     List<dynamic> bookmarkList = await DatabaseServices.createBookMarkList();
-    for (int i = 0; i < bookmarkList.length; i++) {
-      if (input == bookmarkList[i]) {
-        print('its true');
-        return true;
-      }
+    if (bookmarkList.contains(input)) {
+      return true;
     }
-    print('its false');
     return false;
   }
 
@@ -25,11 +18,13 @@ class DatabaseServices {
         .child("${FirebaseAuth.instance.currentUser!.uid}/bookmarks")
         .get();
     if (snapshot.exists) {
-      for (int i = 0; i < snapshot.children.length; i++) {
-        var map = Map.from(snapshot.children.elementAt(i).value as Map);
-        bookmarkList.add(map.values.first);
-      }
+      var map =
+          Map<String, dynamic>.from(snapshot.value as Map<dynamic, dynamic>);
+      map.forEach((key, value) {
+        bookmarkList.add(value.toString().split(': ')[1].split('}')[0]);
+      });
     } else {}
+
     return bookmarkList;
   }
 }

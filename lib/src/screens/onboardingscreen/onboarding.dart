@@ -20,7 +20,7 @@ class Onboarding extends StatefulWidget {
 }
 
 class OnboardingState extends State<Onboarding> {
-  PageController _controller = PageController();
+  final PageController _controller = PageController();
 
   @override
   void dispose() {
@@ -117,7 +117,7 @@ class OnboardingState extends State<Onboarding> {
               child: AnimatedSmoothIndicator(
                 onDotClicked: (index) {
                   _controller.animateToPage(index,
-                      duration: Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 500),
                       curve: Curves.easeInCirc);
                 },
                 activeIndex: indexter,

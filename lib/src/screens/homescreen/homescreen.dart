@@ -140,7 +140,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                                             showGraphic: true),
                                       ),
                                     ),
-                                    FutureBuilder(
+                                    FutureBuilder<bool>(
                                         future: DatabaseServices.checkIfBookmarked(
                                             'https://github.com/ghpranav/link_preview_generator'),
                                         builder: ((context, snapshot) {
@@ -154,7 +154,30 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                                                       Colors.transparent,
                                                   onPressed: () {
                                                     setState(() {
-                                                      newBookmarkRef.remove();
+                                                      FirebaseDatabase.instance
+                                                          .ref()
+                                                          .child(
+                                                              "${FirebaseAuth.instance.currentUser!.uid}/bookmarks")
+                                                          .orderByChild('url')
+                                                          .equalTo(
+                                                              'https://github.com/ghpranav/link_preview_generator')
+                                                          .onChildAdded
+                                                          .listen((DatabaseEvent
+                                                                  event) {
+                                                        FirebaseDatabase
+                                                            .instance
+                                                            .ref()
+                                                            .child(
+                                                                '${FirebaseAuth.instance.currentUser!.uid}/bookmarks')
+                                                            .child(event
+                                                                .snapshot.key!)
+                                                            .remove()
+                                                            .then((value) {
+                                                          setState(() {});
+                                                        });
+                                                      },
+                                                              onError: (Object
+                                                                  o) {});
                                                     });
                                                   },
                                                   child: const Icon(
@@ -248,8 +271,36 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                                                             Colors.transparent,
                                                         onPressed: () {
                                                           setState(() {
-                                                            newBookmarkRef
-                                                                .remove();
+                                                            FirebaseDatabase
+                                                                .instance
+                                                                .ref()
+                                                                .child(
+                                                                    "${FirebaseAuth.instance.currentUser!.uid}/bookmarks")
+                                                                .orderByChild(
+                                                                    'url')
+                                                                .equalTo(
+                                                                    'https://github.com/ghpranav/link_preview_generator')
+                                                                .onChildAdded
+                                                                .listen(
+                                                                    (DatabaseEvent
+                                                                        event) {
+                                                              FirebaseDatabase
+                                                                  .instance
+                                                                  .ref()
+                                                                  .child(
+                                                                      '${FirebaseAuth.instance.currentUser!.uid}/bookmarks')
+                                                                  .child(event
+                                                                      .snapshot
+                                                                      .key!)
+                                                                  .remove()
+                                                                  .then(
+                                                                      (value) {
+                                                                setState(() {});
+                                                              });
+                                                            },
+                                                                    onError:
+                                                                        (Object
+                                                                            o) {});
                                                           });
                                                         },
                                                         child: const Icon(

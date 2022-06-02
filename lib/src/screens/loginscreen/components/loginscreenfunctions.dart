@@ -1,9 +1,10 @@
 import 'package:animated_login/animated_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../loginscreen.dart';
-import '../../onboardingscreen/onboardingcontrol.dart';
 import 'package:toasta/toasta.dart';
+
+import '../../onboardingscreen/onboardingcontrol.dart';
+import '../loginscreen.dart';
 
 class LoginScreenFunctions {
   static void login(BuildContext context, LoginData data) async {

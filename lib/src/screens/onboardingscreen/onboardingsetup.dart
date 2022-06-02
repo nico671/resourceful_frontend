@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:resourceful/src/models/colormodel.dart';
+import '../../models/colormodel.dart';
 import 'onboarding.dart';
 
 class OnboardingScreen extends StatefulWidget {

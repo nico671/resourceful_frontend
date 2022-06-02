@@ -1,15 +1,14 @@
 import 'dart:async';
 
-import 'package:firebase_database/firebase_database.dart';
-
+import 'package:after_layout/after_layout.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:resourceful/src/models/colormodel.dart';
-import 'package:resourceful/src/screens/homescreen/homescreen.dart';
-import 'package:resourceful/src/screens/loginscreen/loginscreen.dart';
-import 'onboardingsetup.dart';
-import 'package:after_layout/after_layout.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../models/colormodel.dart';
+import '../homescreen/homescreen.dart';
+import '../loginscreen/loginscreen.dart';
+import 'onboardingsetup.dart';
 
 class CheckOnboarding extends StatefulWidget {
   const CheckOnboarding({Key? key}) : super(key: key);

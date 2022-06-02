@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:language_picker/language_picker.dart';
 import 'package:language_picker/languages.dart';
 
-import 'package:resourceful/src/models/colormodel.dart';
+import '../../../models/colormodel.dart';
 
-import 'package:resourceful/src/services/api_services.dart';
 import '../../../services/api_services.dart';
 
 class HomescreenModal {

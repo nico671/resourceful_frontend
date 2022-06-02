@@ -4,10 +4,10 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:link_preview_generator/link_preview_generator.dart';
-import 'package:resourceful/src/screens/loginscreen/loginscreen.dart';
-import 'package:resourceful/src/models/colormodel.dart';
-import 'package:resourceful/src/models/totitlecase.dart';
-import 'package:resourceful/src/services/databaseservices.dart';
+import '../../loginscreen/loginscreen.dart';
+import '../../../models/colormodel.dart';
+import '../../../models/totitlecase.dart';
+import '../../../services/databaseservices.dart';
 
 class ProfileHomescreen {
   DatabaseReference bookmarkListRef = FirebaseDatabase.instance

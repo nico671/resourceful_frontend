@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:resourceful/src/screens/homescreen/components/homescreenroute.dart';
+
+import '../screens/homescreen/components/homescreenroute.dart';
 
 class APIServices {
   static void homescreenAPISearch(

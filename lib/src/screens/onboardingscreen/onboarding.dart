@@ -1,6 +1,5 @@
 import 'dart:ui';
-import 'package:concentric_transition/concentric_transition.dart';
-import 'package:resourceful/src/screens/homescreen/homescreen.dart';
+import '../homescreen/homescreen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter/material.dart';
 

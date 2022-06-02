@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:resourceful/src/screens/resultscreen/resultscreen.dart';
+import '../../resultscreen/resultscreen.dart';
 
 class HomescreenRoute {
   static Route createRoute() {

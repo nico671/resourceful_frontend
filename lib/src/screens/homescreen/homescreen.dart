@@ -3,11 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:link_preview_generator/link_preview_generator.dart';
-import 'package:resourceful/src/models/colormodel.dart';
+import '../../models/colormodel.dart';
 
-import 'package:resourceful/src/screens/homescreen/components/homescreenmodal.dart';
-import 'package:resourceful/src/screens/profilescreen/profilescreen.dart';
-import 'package:resourceful/src/services/databaseservices.dart';
+import 'components/homescreenmodal.dart';
+import '../profilescreen/profilescreen.dart';
+import '../../services/databaseservices.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({Key? key}) : super(key: key);

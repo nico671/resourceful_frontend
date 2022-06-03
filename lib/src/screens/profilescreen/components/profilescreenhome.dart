@@ -110,7 +110,7 @@ class ProfileHomescreen {
                                     return ListView.builder(
                                         clipBehavior: Clip.antiAlias,
                                         itemCount: DatabaseServices
-                                            .bookmarkList.length,
+                                            .globalBookmarkList.length,
                                         itemBuilder: (context, index) {
                                           return Padding(
                                             padding: const EdgeInsets.only(

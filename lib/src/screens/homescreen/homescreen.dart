@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -16,12 +17,14 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
+  bool bookmarked = false;
   DatabaseReference bookmarkListRef = FirebaseDatabase.instance
       .ref("${FirebaseAuth.instance.currentUser!.uid}/bookmarks");
   late DatabaseReference newBookmarkRef = bookmarkListRef.push();
 
   @override
   Widget build(BuildContext context) {
+    DatabaseServices.createBookMarkList();
     return Scaffold(
       body: Stack(
         children: [
@@ -117,98 +120,98 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                                 scrollDirection: Axis.horizontal,
                                 itemCount: 4,
                                 itemBuilder: (_, listViewIndex) {
-                                  return Stack(children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 8.0, right: 8),
-                                      child: SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.height /
-                                                3,
-                                        child: const LinkPreviewGenerator(
-                                            showBody: false,
-                                            showTitle: false,
-                                            backgroundColor: Colors.transparent,
-                                            bodyMaxLines: 2,
-                                            bodyTextOverflow: TextOverflow.fade,
-                                            graphicFit: BoxFit.contain,
-                                            link:
-                                                'https://github.com/ghpranav/link_preview_generator',
-                                            linkPreviewStyle:
-                                                LinkPreviewStyle.large,
-                                            removeElevation: true,
-                                            showGraphic: true),
+                                  return Stack(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 8.0, right: 8),
+                                        child: SizedBox(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              3,
+                                          child: const LinkPreviewGenerator(
+                                              bodyMaxLines: 2,
+                                              bodyTextOverflow:
+                                                  TextOverflow.fade,
+                                              graphicFit: BoxFit.contain,
+                                              link:
+                                                  'https://github.com/ghpranav/link_preview_generator',
+                                              linkPreviewStyle:
+                                                  LinkPreviewStyle.large,
+                                              removeElevation: true,
+                                              showBody: false,
+                                              showTitle: false,
+                                              showGraphic: true),
+                                        ),
                                       ),
-                                    ),
-                                    FutureBuilder<bool>(
-                                        future: DatabaseServices.checkIfBookmarked(
-                                            'https://github.com/ghpranav/link_preview_generator'),
-                                        builder: ((context, snapshot) {
-                                          if (snapshot.data == true) {
-                                            return Align(
-                                              alignment: Alignment.topRight,
-                                              child: FloatingActionButton.small(
-                                                  heroTag: 'btn4$listViewIndex',
-                                                  elevation: 0,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      FirebaseDatabase.instance
-                                                          .ref()
-                                                          .child(
-                                                              "${FirebaseAuth.instance.currentUser!.uid}/bookmarks")
-                                                          .orderByChild('url')
-                                                          .equalTo(
-                                                              'https://github.com/ghpranav/link_preview_generator')
-                                                          .onChildAdded
-                                                          .listen((DatabaseEvent
-                                                                  event) {
-                                                        FirebaseDatabase
-                                                            .instance
-                                                            .ref()
-                                                            .child(
-                                                                '${FirebaseAuth.instance.currentUser!.uid}/bookmarks')
-                                                            .child(event
-                                                                .snapshot.key!)
-                                                            .remove()
-                                                            .then((value) {
-                                                          setState(() {});
-                                                        });
-                                                      },
-                                                              onError: (Object
-                                                                  o) {});
-                                                    });
-                                                  },
-                                                  child: const Icon(
-                                                    Icons.star,
-                                                    color: Colors.black,
-                                                  )),
-                                            );
-                                          } else {
-                                            return Align(
-                                              alignment: Alignment.topRight,
-                                              child: FloatingActionButton.small(
-                                                  heroTag: 'btn5$listViewIndex',
-                                                  elevation: 0,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      newBookmarkRef.update({
-                                                        'url':
-                                                            'https://github.com/ghpranav/link_preview_generator'
-                                                      });
-                                                    });
-                                                  },
-                                                  child: const Icon(
-                                                    Icons.star_border_outlined,
-                                                    color: Colors.black,
-                                                  )),
-                                            );
-                                          }
-                                        })),
-                                  ]);
+                                      FutureBuilder<bool>(
+                                          future: DatabaseServices
+                                              .checkIfBookmarked(
+                                                  'https://github.com/ghpranav/link_preview_generator'),
+                                          builder: ((context, snapshot) {
+                                            if (snapshot.data == true) {
+                                              return Align(
+                                                alignment: Alignment.topRight,
+                                                child:
+                                                    FloatingActionButton.small(
+                                                        heroTag:
+                                                            'btn10$listViewIndex',
+                                                        elevation: 0,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            FirebaseDatabase
+                                                                .instance
+                                                                .ref()
+                                                                .child(
+                                                                    "${FirebaseAuth.instance.currentUser!.uid}/bookmarks")
+                                                                .orderByChild(
+                                                                    'url')
+                                                                .equalTo(
+                                                                    'https://github.com/ghpranav/link_preview_generator')
+                                                                .ref
+                                                                .remove();
+                                                          });
+                                                        },
+                                                        child: const Icon(
+                                                          Icons.star,
+                                                          color: Colors.black,
+                                                        )),
+                                              );
+                                            } else if (snapshot.data == false) {
+                                              return Align(
+                                                alignment: Alignment.topRight,
+                                                child:
+                                                    FloatingActionButton.small(
+                                                        heroTag:
+                                                            'btn11$listViewIndex',
+                                                        elevation: 0,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            newBookmarkRef
+                                                                .update({
+                                                              'url':
+                                                                  'https://github.com/ghpranav/link_preview_generator'
+                                                            });
+                                                            bookmarked == true;
+                                                          });
+                                                        },
+                                                        child: const Icon(
+                                                          Icons
+                                                              .star_border_outlined,
+                                                          color: Colors.black,
+                                                        )),
+                                              );
+                                            } else {
+                                              return const SizedBox.shrink();
+                                            }
+                                          })),
+                                    ],
+                                  );
                                 }),
                           ),
                           Padding(
@@ -254,7 +257,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                                               showGraphic: true),
                                         ),
                                       ),
-                                      FutureBuilder(
+                                      FutureBuilder<bool>(
                                           future: DatabaseServices
                                               .checkIfBookmarked(
                                                   'https://github.com/ghpranav/link_preview_generator'),
@@ -280,27 +283,8 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                                                                     'url')
                                                                 .equalTo(
                                                                     'https://github.com/ghpranav/link_preview_generator')
-                                                                .onChildAdded
-                                                                .listen(
-                                                                    (DatabaseEvent
-                                                                        event) {
-                                                              FirebaseDatabase
-                                                                  .instance
-                                                                  .ref()
-                                                                  .child(
-                                                                      '${FirebaseAuth.instance.currentUser!.uid}/bookmarks')
-                                                                  .child(event
-                                                                      .snapshot
-                                                                      .key!)
-                                                                  .remove()
-                                                                  .then(
-                                                                      (value) {
-                                                                setState(() {});
-                                                              });
-                                                            },
-                                                                    onError:
-                                                                        (Object
-                                                                            o) {});
+                                                                .ref
+                                                                .remove();
                                                           });
                                                         },
                                                         child: const Icon(
@@ -308,7 +292,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                                                           color: Colors.black,
                                                         )),
                                               );
-                                            } else {
+                                            } else if (snapshot.data == false) {
                                               return Align(
                                                 alignment: Alignment.topRight,
                                                 child:
@@ -325,6 +309,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                                                               'url':
                                                                   'https://github.com/ghpranav/link_preview_generator'
                                                             });
+                                                            bookmarked == true;
                                                           });
                                                         },
                                                         child: const Icon(
@@ -333,6 +318,8 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                                                           color: Colors.black,
                                                         )),
                                               );
+                                            } else {
+                                              return const SizedBox.shrink();
                                             }
                                           })),
                                     ],

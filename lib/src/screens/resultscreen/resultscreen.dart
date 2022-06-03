@@ -167,6 +167,7 @@ class _ResultScreenState extends State<ResultScreen>
   ];
   var indexter = 0;
   List<Activity> activityList = [];
+
   List<Activity> createActivityList(int ind) {
     activityList.clear();
     for (int i = 0; i < fakeData[0].values.length; i++) {
@@ -390,13 +391,13 @@ class _ResultScreenState extends State<ResultScreen>
                               Positioned(
                                 bottom: MediaQuery.of(context).size.height / 8,
                                 right: 0,
-                                child: FutureBuilder(
+                                child: FutureBuilder<bool>(
                                     future: DatabaseServices.checkIfBookmarked(
-                                        item.url),
+                                        'https://github.com/ghpranav/link_preview_generator'),
                                     builder: ((context, snapshot) {
                                       if (snapshot.data == true) {
                                         return Align(
-                                          alignment: Alignment.bottomRight,
+                                          alignment: Alignment.topRight,
                                           child: FloatingActionButton.small(
                                               heroTag: 'btn6$index',
                                               elevation: 0,
@@ -404,7 +405,15 @@ class _ResultScreenState extends State<ResultScreen>
                                                   Colors.transparent,
                                               onPressed: () {
                                                 setState(() {
-                                                  newBookmarkRef.remove();
+                                                  FirebaseDatabase.instance
+                                                      .ref()
+                                                      .child(
+                                                          "${FirebaseAuth.instance.currentUser!.uid}/bookmarks")
+                                                      .orderByChild('url')
+                                                      .equalTo(
+                                                          'https://github.com/ghpranav/link_preview_generator')
+                                                      .ref
+                                                      .remove();
                                                 });
                                               },
                                               child: const Icon(
@@ -412,9 +421,9 @@ class _ResultScreenState extends State<ResultScreen>
                                                 color: Colors.black,
                                               )),
                                         );
-                                      } else {
+                                      } else if (snapshot.data == false) {
                                         return Align(
-                                          alignment: Alignment.bottomRight,
+                                          alignment: Alignment.topRight,
                                           child: FloatingActionButton.small(
                                               heroTag: 'btn7$index',
                                               elevation: 0,
@@ -422,8 +431,10 @@ class _ResultScreenState extends State<ResultScreen>
                                                   Colors.transparent,
                                               onPressed: () {
                                                 setState(() {
-                                                  newBookmarkRef.update(
-                                                      {'url': item.url});
+                                                  newBookmarkRef.update({
+                                                    'url':
+                                                        'https://github.com/ghpranav/link_preview_generator'
+                                                  });
                                                 });
                                               },
                                               child: const Icon(
@@ -431,6 +442,8 @@ class _ResultScreenState extends State<ResultScreen>
                                                 color: Colors.black,
                                               )),
                                         );
+                                      } else {
+                                        return const SizedBox.shrink();
                                       }
                                     })),
                               ),

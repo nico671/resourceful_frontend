@@ -17,7 +17,6 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
-  bool bookmarked = false;
   DatabaseReference bookmarkListRef = FirebaseDatabase.instance
       .ref("${FirebaseAuth.instance.currentUser!.uid}/bookmarks");
   late DatabaseReference newBookmarkRef = bookmarkListRef.push();
@@ -26,6 +25,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     DatabaseServices.createBookMarkList();
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: Stack(
         children: [
           Positioned(
@@ -96,7 +96,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                                       color: Colors.blueGrey,
                                       width: 2.0,
                                     )),
-                                backgroundColor: backgroundColor,
+                                backgroundColor: Colors.white,
                                 onPressed: () {
                                   Navigator.of(context)
                                       .push(MaterialPageRoute(
@@ -176,7 +176,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                                                           });
                                                         },
                                                         child: const Icon(
-                                                          Icons.star,
+                                                          Icons.bookmark_add,
                                                           color: Colors.black,
                                                         )),
                                               );
@@ -197,12 +197,11 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                                                               'url':
                                                                   'https://github.com/ghpranav/link_preview_generator'
                                                             });
-                                                            bookmarked == true;
                                                           });
                                                         },
                                                         child: const Icon(
                                                           Icons
-                                                              .star_border_outlined,
+                                                              .bookmark_add_outlined,
                                                           color: Colors.black,
                                                         )),
                                               );
@@ -288,7 +287,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                                                           });
                                                         },
                                                         child: const Icon(
-                                                          Icons.star,
+                                                          Icons.bookmark_add,
                                                           color: Colors.black,
                                                         )),
                                               );
@@ -309,12 +308,11 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                                                               'url':
                                                                   'https://github.com/ghpranav/link_preview_generator'
                                                             });
-                                                            bookmarked == true;
                                                           });
                                                         },
                                                         child: const Icon(
                                                           Icons
-                                                              .star_border_outlined,
+                                                              .bookmark_add_outlined,
                                                           color: Colors.black,
                                                         )),
                                               );

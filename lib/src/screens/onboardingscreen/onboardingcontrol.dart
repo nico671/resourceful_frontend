@@ -45,9 +45,9 @@ class CheckOnboardingState extends State<CheckOnboarding>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: backgroundColor,
-      body: const Center(
+    return const Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
         child: Text('Loading...'),
       ),
     );

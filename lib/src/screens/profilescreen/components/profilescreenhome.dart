@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:resourceful/src/models/profilescreenbuttons.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,9 @@ class ProfileHomescreen {
     if (FirebaseAuth.instance.currentUser != null) {
       return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
+        DatabaseReference bookmarkListRef = FirebaseDatabase.instance
+            .ref("${FirebaseAuth.instance.currentUser!.uid}/bookmarks");
+        late DatabaseReference newBookmarkRef = bookmarkListRef.push();
         return Stack(children: [
           Positioned(
               top: -150,
@@ -106,17 +110,109 @@ class ProfileHomescreen {
                               child: FutureBuilder<List<dynamic>>(
                                   initialData: const [],
                                   future: DatabaseServices.createBookMarkList(),
-                                  builder: (context, snapshot) {
+                                  builder: (context, firstSnapshot) {
                                     return ListView.builder(
                                         clipBehavior: Clip.antiAlias,
                                         itemCount: DatabaseServices
                                             .globalBookmarkList.length,
                                         itemBuilder: (context, index) {
-                                          return Padding(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 8.0),
-                                            child: LinkPreviewGenerator(
-                                                link: snapshot.data![index]),
+                                          return Stack(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 8.0),
+                                                child: LinkPreviewGenerator(
+                                                    link: firstSnapshot
+                                                        .data![index]),
+                                              ),
+                                              Positioned(
+                                                bottom: 0,
+                                                right: 0,
+                                                child: FutureBuilder<bool>(
+                                                    future: DatabaseServices
+                                                        .checkIfBookmarked(
+                                                            firstSnapshot
+                                                                .data![index]),
+                                                    builder:
+                                                        ((context, snapshot) {
+                                                      if (snapshot.data ==
+                                                          true) {
+                                                        return Align(
+                                                          alignment: Alignment
+                                                              .topRight,
+                                                          child: FloatingActionButton
+                                                              .small(
+                                                                  heroTag:
+                                                                      'btn6$index',
+                                                                  elevation: 0,
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onPressed:
+                                                                      () {
+                                                                    setState(
+                                                                        () {
+                                                                      FirebaseDatabase
+                                                                          .instance
+                                                                          .ref()
+                                                                          .child(
+                                                                              "${FirebaseAuth.instance.currentUser!.uid}/bookmarks")
+                                                                          .orderByChild(
+                                                                              'url')
+                                                                          .equalTo(
+                                                                              firstSnapshot.data![index])
+                                                                          .ref
+                                                                          .remove();
+                                                                    });
+                                                                  },
+                                                                  child:
+                                                                      const Icon(
+                                                                    Icons
+                                                                        .bookmark_add,
+                                                                    color: Colors
+                                                                        .black,
+                                                                  )),
+                                                        );
+                                                      } else if (snapshot
+                                                              .data ==
+                                                          false) {
+                                                        return Align(
+                                                          alignment: Alignment
+                                                              .topRight,
+                                                          child: FloatingActionButton
+                                                              .small(
+                                                                  heroTag:
+                                                                      'btn7$index',
+                                                                  elevation: 0,
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onPressed:
+                                                                      () {
+                                                                    setState(
+                                                                        () {
+                                                                      newBookmarkRef
+                                                                          .update({
+                                                                        'url': firstSnapshot
+                                                                            .data![index]
+                                                                      });
+                                                                    });
+                                                                  },
+                                                                  child:
+                                                                      const Icon(
+                                                                    Icons
+                                                                        .bookmark_add_outlined,
+                                                                    color: Colors
+                                                                        .black,
+                                                                  )),
+                                                        );
+                                                      } else {
+                                                        return const SizedBox
+                                                            .shrink();
+                                                      }
+                                                    })),
+                                              ),
+                                            ],
                                           );
                                         });
                                   }),
@@ -125,157 +221,110 @@ class ProfileHomescreen {
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: SizedBox(
-                                width: MediaQuery.of(context).size.width / 2,
-                                child: ElevatedButton(
-                                    style: ButtonStyle(
-                                        shape: MaterialStateProperty.all(
-                                          const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(30)),
-                                              side: BorderSide(
-                                                  width: 2.0,
-                                                  color: Colors.blueGrey)),
-                                        ),
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                backgroundColor)),
-                                    onPressed: () {
-                                      setState(
-                                        () {
-                                          final ref =
-                                              FirebaseDatabase.instance.ref();
-                                          ref
-                                              .child(
-                                                  "${FirebaseAuth.instance.currentUser!.uid}/bookmarks")
-                                              .remove();
-                                        },
-                                      );
-                                    },
-                                    child: const Text(
-                                      'Clear Bookmarks',
-                                      style: TextStyle(color: Colors.blueGrey),
-                                    )),
-                              ),
+                                  width: MediaQuery.of(context).size.width / 2,
+                                  child: ProfileScreenButtons(
+                                      onPressed: () {
+                                        setState(
+                                          () {
+                                            final ref =
+                                                FirebaseDatabase.instance.ref();
+                                            ref
+                                                .child(
+                                                    "${FirebaseAuth.instance.currentUser!.uid}/bookmarks")
+                                                .remove();
+                                          },
+                                        );
+                                      },
+                                      titleText: 'Clear Bookmarks')),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: SizedBox(
-                                width: MediaQuery.of(context).size.width / 2,
-                                child: ElevatedButton(
-                                    style: ButtonStyle(
-                                        shape: MaterialStateProperty.all(
-                                          const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(30)),
-                                              side: BorderSide(
-                                                  width: 2.0,
-                                                  color: Colors.blueGrey)),
-                                        ),
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                backgroundColor)),
-                                    onPressed: () {
-                                      FirebaseAuth.instance.signOut();
-                                      Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const LoginScreen()),
-                                      );
-                                    },
-                                    child: const Text(
-                                      'Sign Out',
-                                      style: TextStyle(color: Colors.blueGrey),
-                                    )),
-                              ),
+                                  width: MediaQuery.of(context).size.width / 2,
+                                  child: ProfileScreenButtons(
+                                      onPressed: () {
+                                        FirebaseAuth.instance.signOut();
+                                        Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const LoginScreen()),
+                                        );
+                                      },
+                                      titleText: 'Sign Out')),
                             ),
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: SizedBox(
-                                width: MediaQuery.of(context).size.width / 2,
-                                child: ElevatedButton(
-                                    style: ButtonStyle(
-                                        shape: MaterialStateProperty.all(
-                                          const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(30)),
-                                              side: BorderSide(
-                                                  width: 2.0,
-                                                  color: Colors.blueGrey)),
-                                        ),
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                backgroundColor)),
-                                    onPressed: () async {
-                                      TextEditingController
-                                          passwordTextController =
-                                          TextEditingController();
-                                      TextEditingController
-                                          emailTextController =
-                                          TextEditingController();
-                                      Alert(
-                                          context: context,
-                                          title:
-                                              "LOGIN NEEDED TO DELETE ACCOUNT",
-                                          content: Column(
-                                            children: <Widget>[
-                                              TextField(
-                                                autocorrect: false,
-                                                controller: emailTextController,
-                                                decoration:
-                                                    const InputDecoration(
-                                                  icon: Icon(
-                                                      Icons.account_circle),
-                                                  labelText: 'Email',
+                                  width: MediaQuery.of(context).size.width / 2,
+                                  child: ProfileScreenButtons(
+                                      onPressed: () {
+                                        TextEditingController
+                                            passwordTextController =
+                                            TextEditingController();
+                                        TextEditingController
+                                            emailTextController =
+                                            TextEditingController();
+                                        Alert(
+                                            context: context,
+                                            title:
+                                                "LOGIN NEEDED TO DELETE ACCOUNT",
+                                            content: Column(
+                                              children: <Widget>[
+                                                TextField(
+                                                  autocorrect: false,
+                                                  controller:
+                                                      emailTextController,
+                                                  decoration:
+                                                      const InputDecoration(
+                                                    icon: Icon(
+                                                        Icons.account_circle),
+                                                    labelText: 'Email',
+                                                  ),
                                                 ),
-                                              ),
-                                              TextField(
-                                                autocorrect: false,
-                                                controller:
-                                                    passwordTextController,
-                                                obscureText: true,
-                                                decoration:
-                                                    const InputDecoration(
-                                                  icon: Icon(Icons.lock),
-                                                  labelText: 'Password',
+                                                TextField(
+                                                  autocorrect: false,
+                                                  controller:
+                                                      passwordTextController,
+                                                  obscureText: true,
+                                                  decoration:
+                                                      const InputDecoration(
+                                                    icon: Icon(Icons.lock),
+                                                    labelText: 'Password',
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          buttons: [
-                                            DialogButton(
-                                              onPressed: () async {
-                                                var result = await FirebaseAuth
-                                                    .instance.currentUser!
-                                                    .reauthenticateWithCredential(
-                                                        EmailAuthProvider.credential(
-                                                            email:
-                                                                emailTextController
-                                                                    .text,
-                                                            password:
-                                                                passwordTextController
-                                                                    .text));
-                                                await result.user!.delete();
-                                                Navigator.of(context)
-                                                    .pushReplacement(
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const LoginScreen()),
-                                                );
-                                              },
-                                              child: const Text(
-                                                "DELETE ACCOUNT",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20),
-                                              ),
-                                            )
-                                          ]).show();
-                                    },
-                                    child: const Text(
-                                      'Delete Account',
-                                      style: TextStyle(color: Colors.blueGrey),
-                                    )),
-                              ),
+                                              ],
+                                            ),
+                                            buttons: [
+                                              DialogButton(
+                                                onPressed: () async {
+                                                  var result = await FirebaseAuth
+                                                      .instance.currentUser!
+                                                      .reauthenticateWithCredential(
+                                                          EmailAuthProvider.credential(
+                                                              email:
+                                                                  emailTextController
+                                                                      .text,
+                                                              password:
+                                                                  passwordTextController
+                                                                      .text));
+                                                  await result.user!.delete();
+                                                  Navigator.of(context)
+                                                      .pushReplacement(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const LoginScreen()),
+                                                  );
+                                                },
+                                                child: const Text(
+                                                  "DELETE ACCOUNT",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 20),
+                                                ),
+                                              )
+                                            ]).show();
+                                      },
+                                      titleText: 'Delete Account')),
                             ),
                           ]))))
         ]);

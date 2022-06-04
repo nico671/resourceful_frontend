@@ -199,6 +199,7 @@ class _ResultScreenState extends State<ResultScreen>
   Widget build(BuildContext context) {
     createActivityList(indexter);
     return Scaffold(
+        backgroundColor: backgroundColor,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           centerTitle: true,
@@ -314,7 +315,7 @@ class _ResultScreenState extends State<ResultScreen>
                                     padding: const EdgeInsets.only(bottom: 8.0),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                          color: backgroundColor,
+                                          color: Colors.white,
                                           borderRadius:
                                               BorderRadius.circular(12)),
                                       height:
@@ -393,7 +394,7 @@ class _ResultScreenState extends State<ResultScreen>
                                 right: 0,
                                 child: FutureBuilder<bool>(
                                     future: DatabaseServices.checkIfBookmarked(
-                                        'https://github.com/ghpranav/link_preview_generator'),
+                                        item.url),
                                     builder: ((context, snapshot) {
                                       if (snapshot.data == true) {
                                         return Align(
@@ -410,14 +411,13 @@ class _ResultScreenState extends State<ResultScreen>
                                                       .child(
                                                           "${FirebaseAuth.instance.currentUser!.uid}/bookmarks")
                                                       .orderByChild('url')
-                                                      .equalTo(
-                                                          'https://github.com/ghpranav/link_preview_generator')
+                                                      .equalTo(item.url)
                                                       .ref
                                                       .remove();
                                                 });
                                               },
                                               child: const Icon(
-                                                Icons.star,
+                                                Icons.bookmark_add,
                                                 color: Colors.black,
                                               )),
                                         );
@@ -431,14 +431,12 @@ class _ResultScreenState extends State<ResultScreen>
                                                   Colors.transparent,
                                               onPressed: () {
                                                 setState(() {
-                                                  newBookmarkRef.update({
-                                                    'url':
-                                                        'https://github.com/ghpranav/link_preview_generator'
-                                                  });
+                                                  newBookmarkRef.update(
+                                                      {'url': item.url});
                                                 });
                                               },
                                               child: const Icon(
-                                                Icons.star_border_outlined,
+                                                Icons.bookmark_add_outlined,
                                                 color: Colors.black,
                                               )),
                                         );

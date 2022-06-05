@@ -20,10 +20,6 @@ class ResultScreen extends StatefulWidget {
 
 class _ResultScreenState extends State<ResultScreen>
     with TickerProviderStateMixin {
-  DatabaseReference bookmarkListRef = FirebaseDatabase.instance
-      .ref("${FirebaseAuth.instance.currentUser!.uid}/bookmarks");
-  late DatabaseReference newBookmarkRef = bookmarkListRef.push();
-
   List<Map<String, List<Map<String, List<dynamic>>>>> fakeData = [
     {
       "courses cs all Rockville MD USA": [
@@ -417,7 +413,7 @@ class _ResultScreenState extends State<ResultScreen>
                                                 });
                                               },
                                               child: const Icon(
-                                                Icons.bookmark_add,
+                                                Icons.bookmark,
                                                 color: Colors.black,
                                               )),
                                         );
@@ -431,8 +427,14 @@ class _ResultScreenState extends State<ResultScreen>
                                                   Colors.transparent,
                                               onPressed: () {
                                                 setState(() {
-                                                  newBookmarkRef.update(
-                                                      {'url': item.url});
+                                                  DatabaseReference
+                                                      bookmarkListRef =
+                                                      FirebaseDatabase.instance.ref(
+                                                          "${FirebaseAuth.instance.currentUser!.uid}/bookmarks");
+                                                  late DatabaseReference
+                                                      newBookmarkRef =
+                                                      bookmarkListRef.push();
+                                                  newBookmarkRef.set(item.url);
                                                 });
                                               },
                                               child: const Icon(

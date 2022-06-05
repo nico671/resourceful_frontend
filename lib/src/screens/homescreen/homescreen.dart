@@ -17,10 +17,6 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
-  DatabaseReference bookmarkListRef = FirebaseDatabase.instance
-      .ref("${FirebaseAuth.instance.currentUser!.uid}/bookmarks");
-  late DatabaseReference newBookmarkRef = bookmarkListRef.push();
-
   @override
   Widget build(BuildContext context) {
     DatabaseServices.createBookMarkList();
@@ -167,8 +163,6 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                                                                 .ref()
                                                                 .child(
                                                                     "${FirebaseAuth.instance.currentUser!.uid}/bookmarks")
-                                                                .orderByChild(
-                                                                    'url')
                                                                 .equalTo(
                                                                     'https://github.com/ghpranav/link_preview_generator')
                                                                 .ref
@@ -176,7 +170,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                                                           });
                                                         },
                                                         child: const Icon(
-                                                          Icons.bookmark_add,
+                                                          Icons.bookmark,
                                                           color: Colors.black,
                                                         )),
                                               );
@@ -192,11 +186,18 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                                                             Colors.transparent,
                                                         onPressed: () {
                                                           setState(() {
-                                                            newBookmarkRef
-                                                                .update({
-                                                              'url':
-                                                                  'https://github.com/ghpranav/link_preview_generator'
-                                                            });
+                                                            DatabaseReference
+                                                                bookmarkListRef =
+                                                                FirebaseDatabase
+                                                                    .instance
+                                                                    .ref(
+                                                                        "${FirebaseAuth.instance.currentUser!.uid}/bookmarks");
+                                                            late DatabaseReference
+                                                                newBookmarkRef =
+                                                                bookmarkListRef
+                                                                    .push();
+                                                            newBookmarkRef.set(
+                                                                'https://github.com/ghpranav/link_preview_generator');
                                                           });
                                                         },
                                                         child: const Icon(
@@ -287,7 +288,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                                                           });
                                                         },
                                                         child: const Icon(
-                                                          Icons.bookmark_add,
+                                                          Icons.bookmark,
                                                           color: Colors.black,
                                                         )),
                                               );
@@ -303,11 +304,18 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                                                             Colors.transparent,
                                                         onPressed: () {
                                                           setState(() {
-                                                            newBookmarkRef
-                                                                .update({
-                                                              'url':
-                                                                  'https://github.com/ghpranav/link_preview_generator'
-                                                            });
+                                                            DatabaseReference
+                                                                bookmarkListRef =
+                                                                FirebaseDatabase
+                                                                    .instance
+                                                                    .ref(
+                                                                        "${FirebaseAuth.instance.currentUser!.uid}/bookmarks");
+                                                            late DatabaseReference
+                                                                newBookmarkRef =
+                                                                bookmarkListRef
+                                                                    .push();
+                                                            newBookmarkRef.set(
+                                                                'https://github.com/ghpranav/link_preview_generator');
                                                           });
                                                         },
                                                         child: const Icon(

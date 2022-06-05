@@ -17,9 +17,8 @@ class DatabaseServices {
     return false;
   }
 
-  static List<dynamic> globalBookmarkList = [];
   static Future<List<dynamic>> createBookMarkList() async {
-    globalBookmarkList.clear();
+    List<dynamic> globalBookmarkList = [];
     final ref = FirebaseDatabase.instance.ref();
     final snapshot = await ref
         .child("${FirebaseAuth.instance.currentUser!.uid}/bookmarks")
@@ -27,13 +26,11 @@ class DatabaseServices {
     if (snapshot.exists) {
       var map =
           Map<String, dynamic>.from(snapshot.value as Map<dynamic, dynamic>);
-      map.forEach((key, value) {
-        globalBookmarkList.add(value.toString().split(': ')[1].split('}')[0]);
+      map.values.forEach((element) {
+        globalBookmarkList.add(element);
       });
     } else {}
-    for (int i = 0; i < globalBookmarkList.length - 1; i++) {
-      print(globalBookmarkList[i]);
-    }
+
     return globalBookmarkList;
   }
 }

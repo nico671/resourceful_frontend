@@ -11,16 +11,10 @@ import '../../../models/totitlecase.dart';
 import '../../../services/databaseservices.dart';
 
 class ProfileHomescreen {
-  DatabaseReference bookmarkListRef = FirebaseDatabase.instance
-      .ref("${FirebaseAuth.instance.currentUser!.uid}/bookmarks");
-  late DatabaseReference newBookmarkRef = bookmarkListRef.push();
   static Widget home(BuildContext context) {
     if (FirebaseAuth.instance.currentUser != null) {
       return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
-        DatabaseReference bookmarkListRef = FirebaseDatabase.instance
-            .ref("${FirebaseAuth.instance.currentUser!.uid}/bookmarks");
-        late DatabaseReference newBookmarkRef = bookmarkListRef.push();
         return Stack(children: [
           Positioned(
               top: -150,
@@ -108,113 +102,133 @@ class ProfileHomescreen {
                             SizedBox(
                               height: MediaQuery.of(context).size.height / 2.5,
                               child: FutureBuilder<List<dynamic>>(
-                                  initialData: const [],
                                   future: DatabaseServices.createBookMarkList(),
-                                  builder: (context, firstSnapshot) {
-                                    return ListView.builder(
-                                        clipBehavior: Clip.antiAlias,
-                                        itemCount: DatabaseServices
-                                            .globalBookmarkList.length,
-                                        itemBuilder: (context, index) {
-                                          return Stack(
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    bottom: 8.0),
-                                                child: LinkPreviewGenerator(
-                                                    link: firstSnapshot
-                                                        .data![index]),
-                                              ),
-                                              Positioned(
-                                                bottom: 0,
-                                                right: 0,
-                                                child: FutureBuilder<bool>(
-                                                    future: DatabaseServices
-                                                        .checkIfBookmarked(
-                                                            firstSnapshot
-                                                                .data![index]),
-                                                    builder:
-                                                        ((context, snapshot) {
-                                                      if (snapshot.data ==
-                                                          true) {
-                                                        return Align(
-                                                          alignment: Alignment
-                                                              .topRight,
-                                                          child: FloatingActionButton
-                                                              .small(
-                                                                  heroTag:
-                                                                      'btn6$index',
-                                                                  elevation: 0,
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  onPressed:
-                                                                      () {
-                                                                    setState(
-                                                                        () {
-                                                                      FirebaseDatabase
-                                                                          .instance
-                                                                          .ref()
-                                                                          .child(
-                                                                              "${FirebaseAuth.instance.currentUser!.uid}/bookmarks")
-                                                                          .orderByChild(
-                                                                              'url')
-                                                                          .equalTo(
-                                                                              firstSnapshot.data![index])
-                                                                          .ref
-                                                                          .remove();
-                                                                    });
-                                                                  },
-                                                                  child:
-                                                                      const Icon(
-                                                                    Icons
-                                                                        .bookmark_add,
-                                                                    color: Colors
-                                                                        .black,
-                                                                  )),
-                                                        );
-                                                      } else if (snapshot
-                                                              .data ==
-                                                          false) {
-                                                        return Align(
-                                                          alignment: Alignment
-                                                              .topRight,
-                                                          child: FloatingActionButton
-                                                              .small(
-                                                                  heroTag:
-                                                                      'btn7$index',
-                                                                  elevation: 0,
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  onPressed:
-                                                                      () {
-                                                                    setState(
-                                                                        () {
-                                                                      newBookmarkRef
-                                                                          .update({
-                                                                        'url': firstSnapshot
-                                                                            .data![index]
-                                                                      });
-                                                                    });
-                                                                  },
-                                                                  child:
-                                                                      const Icon(
-                                                                    Icons
-                                                                        .bookmark_add_outlined,
-                                                                    color: Colors
-                                                                        .black,
-                                                                  )),
-                                                        );
-                                                      } else {
-                                                        return const SizedBox
-                                                            .shrink();
-                                                      }
-                                                    })),
-                                              ),
-                                            ],
-                                          );
-                                        });
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<List<dynamic>>
+                                          firstSnapshot) {
+                                    switch (firstSnapshot.connectionState) {
+                                      case ConnectionState.waiting:
+                                        return const Text('Loading....');
+                                      case ConnectionState.done:
+                                        return ListView.builder(
+                                            clipBehavior: Clip.antiAlias,
+                                            itemCount:
+                                                firstSnapshot.data!.length,
+                                            itemBuilder:
+                                                (context, listViewIndex) {
+                                              print(firstSnapshot.data!.length);
+                                              return Stack(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 8.0),
+                                                    child: LinkPreviewGenerator(
+                                                        link:
+                                                            firstSnapshot.data![
+                                                                listViewIndex]),
+                                                  ),
+                                                  Positioned(
+                                                    bottom: 0,
+                                                    right: 0,
+                                                    child: FutureBuilder<bool>(
+                                                        future: DatabaseServices
+                                                            .checkIfBookmarked(
+                                                                firstSnapshot
+                                                                        .data![
+                                                                    listViewIndex]),
+                                                        builder: ((context,
+                                                            snapshot) {
+                                                          if (snapshot.data ==
+                                                              true) {
+                                                            return Align(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .topRight,
+                                                              child: FloatingActionButton
+                                                                  .small(
+                                                                      heroTag:
+                                                                          'btn6$listViewIndex',
+                                                                      elevation:
+                                                                          0,
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      onPressed:
+                                                                          () {
+                                                                        setState(
+                                                                            () {
+                                                                          FirebaseDatabase
+                                                                              .instance
+                                                                              .ref()
+                                                                              .child("${FirebaseAuth.instance.currentUser!.uid}/bookmarks")
+                                                                              .orderByChild('url')
+                                                                              .equalTo(firstSnapshot.data![listViewIndex])
+                                                                              .ref
+                                                                              .remove();
+                                                                        });
+                                                                      },
+                                                                      child:
+                                                                          const Icon(
+                                                                        Icons
+                                                                            .bookmark,
+                                                                        color: Colors
+                                                                            .black,
+                                                                      )),
+                                                            );
+                                                          } else if (snapshot
+                                                                  .data ==
+                                                              false) {
+                                                            return Align(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .topRight,
+                                                              child: FloatingActionButton
+                                                                  .small(
+                                                                      heroTag:
+                                                                          'btn7$listViewIndex',
+                                                                      elevation:
+                                                                          0,
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      onPressed:
+                                                                          () {
+                                                                        setState(
+                                                                            () {
+                                                                          DatabaseReference
+                                                                              bookmarkListRef =
+                                                                              FirebaseDatabase.instance.ref("${FirebaseAuth.instance.currentUser!.uid}/bookmarks");
+                                                                          late DatabaseReference
+                                                                              newBookmarkRef =
+                                                                              bookmarkListRef.push();
+                                                                          newBookmarkRef
+                                                                              .set(firstSnapshot.data![listViewIndex]);
+                                                                        });
+                                                                      },
+                                                                      child:
+                                                                          const Icon(
+                                                                        Icons
+                                                                            .bookmark_add_outlined,
+                                                                        color: Colors
+                                                                            .black,
+                                                                      )),
+                                                            );
+                                                          } else {
+                                                            return const SizedBox
+                                                                .shrink();
+                                                          }
+                                                        })),
+                                                  ),
+                                                ],
+                                              );
+                                            });
+                                      case ConnectionState.none:
+                                        return Text('loading....');
+
+                                      case ConnectionState.active:
+                                        return Text('loading....');
+                                    }
                                   }),
                             ),
                             const Padding(padding: EdgeInsets.only(bottom: 15)),

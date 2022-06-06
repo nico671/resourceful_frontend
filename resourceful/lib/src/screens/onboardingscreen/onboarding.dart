@@ -1,11 +1,10 @@
 import 'dart:ui';
-import 'package:concentric_transition/concentric_transition.dart';
 import 'package:resourceful/src/screens/homescreen/homescreen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter/material.dart';
 
 class Onboarding extends StatefulWidget {
-  final possibleInterests;
+  final List<dynamic> possibleInterests;
 
   const Onboarding(
       {Key? key,
@@ -21,7 +20,7 @@ class Onboarding extends StatefulWidget {
 }
 
 class OnboardingState extends State<Onboarding> {
-  PageController _controller = PageController();
+  final PageController _controller = PageController();
 
   @override
   void dispose() {
@@ -118,7 +117,7 @@ class OnboardingState extends State<Onboarding> {
               child: AnimatedSmoothIndicator(
                 onDotClicked: (index) {
                   _controller.animateToPage(index,
-                      duration: Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 500),
                       curve: Curves.easeInCirc);
                 },
                 activeIndex: indexter,

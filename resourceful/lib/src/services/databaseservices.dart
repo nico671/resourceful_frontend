@@ -9,11 +9,10 @@ class DatabaseServices {
     List<dynamic> bookmarkList = await DatabaseServices.createBookMarkList();
     for (int i = 0; i < bookmarkList.length; i++) {
       if (input == bookmarkList[i]) {
-        print('its true');
         return true;
       }
     }
-    print('its false');
+
     return false;
   }
 

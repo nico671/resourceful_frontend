@@ -281,7 +281,7 @@ class ProfileHomescreen {
         ]);
       });
     } else {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
   }
 }

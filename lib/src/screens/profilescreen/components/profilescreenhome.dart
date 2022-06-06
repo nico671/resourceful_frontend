@@ -224,10 +224,10 @@ class ProfileHomescreen {
                                               );
                                             });
                                       case ConnectionState.none:
-                                        return Text('loading....');
+                                        return const Text('loading....');
 
                                       case ConnectionState.active:
-                                        return Text('loading....');
+                                        return const Text('loading....');
                                     }
                                   }),
                             ),
@@ -344,7 +344,7 @@ class ProfileHomescreen {
         ]);
       });
     } else {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
   }
 }

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "850647467382",
+    "firebase_url": "https://resourceful-369d3-default-rtdb.firebaseio.com",
+    "project_id": "resourceful-369d3",
+    "storage_bucket": "resourceful-369d3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850647467382:android:d56dc621cbe255cb70a657",
+        "android_client_info": {
+          "package_name": "com.example.resourceful"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "850647467382-b8ndn45u0lb7irtdglkp56tsj0l9q1ur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLNBzBaCt1hq6Rgk_3FkNJaUM6Ek7l3cg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "850647467382-b8ndn45u0lb7irtdglkp56tsj0l9q1ur.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "850647467382-iv29qfjoh4vu49hp4f9409o98csm47mq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ankh.blairHacks2022"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

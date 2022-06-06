@@ -26,9 +26,9 @@ class DatabaseServices {
     if (snapshot.exists) {
       var map =
           Map<String, dynamic>.from(snapshot.value as Map<dynamic, dynamic>);
-      map.values.forEach((element) {
+      for (var element in map.values) {
         globalBookmarkList.add(element);
-      });
+      }
     } else {}
 
     return globalBookmarkList;

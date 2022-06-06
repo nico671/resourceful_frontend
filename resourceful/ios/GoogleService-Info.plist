@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>850647467382-p51g8gs9h87mtj5cbe8mf9caia3tte06.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.850647467382-p51g8gs9h87mtj5cbe8mf9caia3tte06</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDY0UwsQ7hdnbdm3gKG_cljtkTJpHcHdp4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>850647467382</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.resourceful</string>
+	<key>PROJECT_ID</key>
+	<string>resourceful-369d3</string>
+	<key>STORAGE_BUCKET</key>
+	<string>resourceful-369d3.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:850647467382:ios:150a860ef390b1e470a657</string>
+	<key>DATABASE_URL</key>
+	<string>https://resourceful-369d3-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

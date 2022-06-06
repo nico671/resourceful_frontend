@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:resourceful/src/models/profilescreenbuttons.dart';
+import '../../../models/profilescreenbuttons.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

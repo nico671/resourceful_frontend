@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:resourceful/src/models/colormodel.dart';
+import '../../models/colormodel.dart';
 import 'components/profilescreenhome.dart';
 
 class ProfileScreen extends StatefulWidget {

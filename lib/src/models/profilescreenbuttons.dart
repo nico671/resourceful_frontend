@@ -4,9 +4,10 @@ class ProfileScreenButtons extends StatelessWidget {
   final void Function()? onPressed;
   final String titleText;
   const ProfileScreenButtons({
+    Key? key,
     required this.onPressed,
     required this.titleText,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

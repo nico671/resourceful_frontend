@@ -1,12 +1,14 @@
 import 'dart:ui';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:link_preview_generator/link_preview_generator.dart';
+
 import '../../models/colormodel.dart';
-import 'components/homescreenmodal.dart';
-import '../profilescreen/profilescreen.dart';
 import '../../services/databaseservices.dart';
+import '../profilescreen/profilescreen.dart';
+import 'components/homescreenmodal.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({Key? key}) : super(key: key);

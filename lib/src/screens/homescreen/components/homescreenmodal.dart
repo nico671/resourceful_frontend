@@ -3,13 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:language_picker/language_picker.dart';
 import 'package:language_picker/languages.dart';
-
+import 'package:resourceful/src/screens/homescreen/components/homescreenroute.dart';
 import '../../../models/colormodel.dart';
 
-import '../../../services/api_services.dart';
-
 class HomescreenModal {
-  static String secondStepTitle = 'In Person/Virtual';
+  static String inPersonVirtualText = 'In Person/Virtual';
   static int currentStepIndexter = 0;
   static String typeOfOppurtunityText = 'Type Of Oppurtunity';
   static String selectLanguageText = 'Language';
@@ -153,7 +151,7 @@ class HomescreenModal {
                           currentStepIndexter++;
                         });
                       } else {
-                        APIServices.homescreenAPISearch(searchedItems, context);
+                        homescreenAPISearch(searchedItems, context);
                       }
                     },
                     onStepCancel: () {
@@ -258,7 +256,7 @@ class HomescreenModal {
                           })),
                       Step(
                           isActive: currentStepIndexter >= 1,
-                          title: Text(secondStepTitle),
+                          title: Text(inPersonVirtualText),
                           content: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
@@ -279,7 +277,7 @@ class HomescreenModal {
                                               thirdInfoSelectionController,
                                           onChanged: (selected) {
                                             setModalState(() {
-                                              secondStepTitle = selected;
+                                              inPersonVirtualText = selected;
                                               currentStepIndexter++;
                                               _inPersonOrVirtual = selected;
                                             });
@@ -453,5 +451,97 @@ class HomescreenModal {
     } else {
       return const SizedBox.shrink();
     }
+  }
+
+  static void homescreenAPISearch(
+      List<List<String>> value, BuildContext context) async {
+    // Location location = Location();
+
+    // bool serviceEnabled;
+    // PermissionStatus permissionGranted;
+    // LocationData locationData;
+
+    // serviceEnabled = await location.serviceEnabled();
+    // if (!serviceEnabled) {
+    //   serviceEnabled = await location.requestService();
+    //   if (!serviceEnabled) {
+    //     return;
+    //   }
+    // }
+
+    // permissionGranted = await location.hasPermission();
+    // if (permissionGranted == PermissionStatus.denied) {
+    //   permissionGranted = await location.requestPermission();
+    //   if (permissionGranted != PermissionStatus.granted) {
+    //     return;
+    //   }
+    // }
+
+    // locationData = await location.getLocation();
+    // List<geocoder.Placemark> placemarks =
+    //     await geocoder.placemarkFromCoordinates(
+    //         locationData.latitude!, locationData.longitude!);
+    // var locationDataString;
+    // if (placemarks[0].isoCountryCode! == 'US') {
+    //   locationDataString =
+    //       '${placemarks[0].name!} ${placemarks[0].administrativeArea!} USA';
+    // } else {
+    //   locationDataString =
+    //       '${placemarks[0].name!} ${placemarks[0].administrativeArea!} ${placemarks[0].isoCountryCode!}';
+    // }
+
+    // if (_selectedSports.isNotEmpty) {
+    //   locationDataString = locationDataString + ' ' + placemarks[0].postalCode;
+    // }
+
+    // if (_inPersonOrVirtual.toLowerCase() == 'no preference') {
+    //   _inPersonOrVirtual = 'all';
+    // }
+
+    // var skillsLowercaseList = [];
+    // for (String i in value[2]) {
+    //   skillsLowercaseList.add('"${i.toLowerCase()}"');
+    // }
+
+    // var interestsLowercaseList = [];
+    // for (String i in value[3]) {
+    //   interestsLowercaseList.add('"${i.toLowerCase()}"');
+    // }
+
+    // var langaugesLowercaseList = [];
+    // for (String i in value[4]) {
+    //   langaugesLowercaseList.add('"${i.toLowerCase()}"');
+    // }
+
+    // Map<String, dynamic> passingToAPIMap = {};
+    // if (_selectedSports.isNotEmpty) {
+    //   passingToAPIMap["sport"] = _selectedSports;
+    //   passingToAPIMap["location"] = locationDataString;
+    // } else if (_selected == 'Scholarship') {
+    //   passingToAPIMap["skills"] = skillsLowercaseList;
+    //   passingToAPIMap["interests"] = interestsLowercaseList;
+    //   passingToAPIMap["languages"] = langaugesLowercaseList;
+    //   passingToAPIMap["type_of_oppurtunity"] = '"${_selected.toLowerCase()}"';
+    //   passingToAPIMap["in_person_online"] = 'in-person';
+    //   passingToAPIMap["grade_level"] = '"${_selectedGrade.toLowerCase()}"';
+    //   print(passingToAPIMap);
+    // } else {
+    //   passingToAPIMap["skills"] = skillsLowercaseList;
+    //   passingToAPIMap["interests"] = interestsLowercaseList;
+    //   passingToAPIMap["languages"] = langaugesLowercaseList;
+    //   passingToAPIMap["type_of_oppurtunity"] = '"${_selected.toLowerCase()}"';
+    //   passingToAPIMap["in_person_online"] =
+    //       '"${_inPersonOrVirtual.toLowerCase()}"';
+    //   passingToAPIMap["location"] = '${'"' + locationDataString}"';
+    //   passingToAPIMap["sport"] = '"$_selectedSports"';
+    //   passingToAPIMap["grade_level"] = '"${_selectedGrade.toLowerCase()}"';
+    // }
+    // Dio dio = Dio();
+    // var queryParameters = passingToAPIMap;
+    // var data = await dio.get(
+    //     'https://coronasafe-flask-app.herokuapp.com/getPlaces',
+    //     queryParameters: queryParameters);
+    Navigator.of(context).pop();
+    Navigator.of(context).push(HomescreenRoute.createRoute());
   }
 }

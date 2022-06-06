@@ -1,10 +1,8 @@
 import 'package:animated_login/animated_login.dart';
-
 import 'package:flutter/material.dart';
+import 'package:toasta/toasta.dart';
 
 import 'loginscreenfunctions.dart';
-
-import 'package:toasta/toasta.dart';
 
 class LoginScreenHome {
   static Widget loginScreenHome(BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:language_picker/language_picker.dart';
 import 'package:language_picker/languages.dart';
-import 'package:resourceful/src/screens/homescreen/components/homescreenroute.dart';
+import 'homescreenroute.dart';
 import '../../../models/colormodel.dart';
 
 class HomescreenModal {

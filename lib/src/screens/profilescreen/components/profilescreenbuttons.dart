@@ -20,7 +20,7 @@ class ProfileScreenButtons extends StatelessWidget {
             ),
             backgroundColor: MaterialStateProperty.all(Colors.white)),
         onPressed: () async {
-          onPressed;
+          onPressed!();
         },
         child: Text(
           titleText,

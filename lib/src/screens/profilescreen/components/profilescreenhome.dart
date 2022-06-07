@@ -116,7 +116,6 @@ class ProfileHomescreen {
                                                 firstSnapshot.data!.length,
                                             itemBuilder:
                                                 (context, listViewIndex) {
-                                              print(firstSnapshot.data!.length);
                                               return Stack(
                                                 children: [
                                                   Padding(

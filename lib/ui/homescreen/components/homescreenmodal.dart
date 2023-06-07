@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:language_picker/language_picker.dart';
 import 'package:language_picker/languages.dart';
 import 'homescreenroute.dart';
-import '../../../models/colormodel.dart';
 
 class HomescreenModal {
   static String inPersonVirtualText = 'In Person/Virtual';
@@ -303,11 +302,11 @@ class HomescreenModal {
                                       width: MediaQuery.of(context).size.width,
                                       child: TextField(
                                         controller: textEditingController,
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                           focusedBorder: InputBorder.none,
                                           hintText: 'Input...',
                                           hintStyle: TextStyle(
-                                            color: accentColor,
+                                            color: Colors.blueGrey,
                                           ),
                                         ),
                                         onSubmitted: (value) {
@@ -340,7 +339,7 @@ class HomescreenModal {
                                                   right: 10),
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                  color: gradientColor,
+                                                  color: Colors.blueGrey,
                                                   borderRadius:
                                                       BorderRadius.circular(20),
                                                 ),

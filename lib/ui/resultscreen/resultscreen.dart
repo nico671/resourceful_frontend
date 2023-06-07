@@ -2,15 +2,11 @@ import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-
 import 'package:flutter/material.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
-
 import 'package:link_preview_generator/link_preview_generator.dart';
+import '../../databaseservices.dart';
 import '../../models/activitymodel.dart';
-
-import '../../models/colormodel.dart';
-import '../../services/databaseservices.dart';
 
 class ResultScreen extends StatefulWidget {
   const ResultScreen({Key? key}) : super(key: key);
@@ -171,14 +167,6 @@ class _ResultScreenState extends State<ResultScreen>
           i,
           Activity(
               url: fakeData[0].values.elementAt(ind).elementAt(i).keys.first,
-              description: fakeData[0]
-                  .values
-                  .elementAt(ind)
-                  .elementAt(i)
-                  .values
-                  .first
-                  .first
-                  .toString(),
               frequencyTags: fakeData[0]
                   .values
                   .elementAt(ind)
@@ -195,7 +183,7 @@ class _ResultScreenState extends State<ResultScreen>
   Widget build(BuildContext context) {
     createActivityList(indexter);
     return Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.white,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           centerTitle: true,
@@ -266,8 +254,8 @@ class _ResultScreenState extends State<ResultScreen>
                                       borderRadius: BorderRadius.circular(30),
                                     ),
                                   ),
-                                  backgroundColor:
-                                      MaterialStateProperty.all(accentColor),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Colors.blueGrey),
                                 ),
                                 onPressed: () {
                                   setState(() {
@@ -368,8 +356,8 @@ class _ResultScreenState extends State<ResultScreen>
                                                             ),
                                                             backgroundColor:
                                                                 MaterialStateProperty
-                                                                    .all(
-                                                                        accentColor),
+                                                                    .all(Colors
+                                                                        .blueGrey),
                                                           ),
                                                           onPressed: () {},
                                                           child: Text(

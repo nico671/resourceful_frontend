@@ -1,14 +1,13 @@
 import 'dart:ui';
 import 'package:firebase_database/firebase_database.dart';
+import '../../../databaseservices.dart';
 import 'profilescreenbuttons.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:link_preview_generator/link_preview_generator.dart';
 import '../../loginscreen/loginscreen.dart';
-import '../../../models/colormodel.dart';
-import '../../../models/totitlecase.dart';
-import '../../../services/databaseservices.dart';
+import '../../../../utils/strings/totitlecase.dart';
 
 class ProfileHomescreen {
   static Widget home(BuildContext context) {
@@ -55,12 +54,12 @@ class ProfileHomescreen {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Text(
+                            const Text(
                               'Name',
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: accentColor,
+                                color: Colors.blueGrey,
                                 fontSize: 30,
                               ),
                             ),
@@ -73,12 +72,12 @@ class ProfileHomescreen {
                               ),
                             ),
                             const Padding(padding: EdgeInsets.only(bottom: 10)),
-                            Text(
+                            const Text(
                               'Email',
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: accentColor,
+                                color: Colors.blueGrey,
                                 fontSize: 30,
                               ),
                             ),
@@ -90,12 +89,12 @@ class ProfileHomescreen {
                               ),
                             ),
                             const Padding(padding: EdgeInsets.only(bottom: 10)),
-                            Text(
+                            const Text(
                               'Bookmarks',
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: accentColor,
+                                color: Colors.blueGrey,
                                 fontSize: 30,
                               ),
                             ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../models/colormodel.dart';
 import 'onboarding.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -106,11 +105,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 controller: textEditingController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   focusedBorder: InputBorder.none,
                   hintText: 'Input...',
                   hintStyle: TextStyle(
-                    color: accentColor,
+                    color: Colors.blueGrey,
                   ),
                 ),
                 onSubmitted: (value) {
@@ -138,7 +137,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           padding: const EdgeInsets.only(right: 10),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: gradientColor,
+                              color: Colors.blueGrey,
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Row(
@@ -190,7 +189,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       ),
       home: Onboarding(
         possibleInterests: possibleInterests,
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.white,
         pages: onboardingPagesList,
       ),
     );

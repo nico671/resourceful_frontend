@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../models/colormodel.dart';
 import 'components/profilescreenhome.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -14,7 +13,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.white,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           centerTitle: true,

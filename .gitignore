@@ -20,5 +20,13 @@ assets/
 ios/
 android/
 web/
+windows/
+linux/
+macos/
 test/
-
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+pubspec.yaml
+analysis_options.yaml
+devtools_options.yaml

@@ -3,13 +3,14 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
+// import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
+import 'package:implicitly_animated_reorderable_list_2/implicitly_animated_reorderable_list_2.dart';
 import 'package:link_preview_generator/link_preview_generator.dart';
 import '../../databaseservices.dart';
 import '../../models/activitymodel.dart';
 
 class ResultScreen extends StatefulWidget {
-  const ResultScreen({Key? key}) : super(key: key);
+  const ResultScreen({super.key});
   @override
   State<StatefulWidget> createState() => _ResultScreenState();
 }
@@ -249,13 +250,13 @@ class _ResultScreenState extends State<ResultScreen>
                             padding: const EdgeInsets.only(right: 8),
                             child: ElevatedButton(
                                 style: ButtonStyle(
-                                  shape: MaterialStateProperty.all(
+                                  shape: WidgetStateProperty.all(
                                     RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30),
                                     ),
                                   ),
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Colors.blueGrey),
+                                  backgroundColor:
+                                      WidgetStateProperty.all(Colors.blueGrey),
                                 ),
                                 onPressed: () {
                                   setState(() {
@@ -345,7 +346,7 @@ class _ResultScreenState extends State<ResultScreen>
                                                       child: ElevatedButton(
                                                           style: ButtonStyle(
                                                             shape:
-                                                                MaterialStateProperty
+                                                                WidgetStateProperty
                                                                     .all(
                                                               RoundedRectangleBorder(
                                                                 borderRadius:
@@ -355,7 +356,7 @@ class _ResultScreenState extends State<ResultScreen>
                                                               ),
                                                             ),
                                                             backgroundColor:
-                                                                MaterialStateProperty
+                                                                WidgetStateProperty
                                                                     .all(Colors
                                                                         .blueGrey),
                                                           ),

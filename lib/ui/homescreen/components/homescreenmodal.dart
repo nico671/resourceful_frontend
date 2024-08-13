@@ -106,9 +106,11 @@ class HomescreenModal {
   static var _selectedGrade = '';
   bool coolnessEnabled = true;
   static TextEditingController textEditingController = TextEditingController();
-  static final infoSelectionController = TextEditingController();
-  static final secondInfoSelectionController = TextEditingController();
-  static final thirdInfoSelectionController = TextEditingController();
+  static final infoSelectionController = SingleSelectController<String>('');
+  static final secondInfoSelectionController =
+      SingleSelectController<String>('');
+  static final thirdInfoSelectionController =
+      SingleSelectController<String>('');
   static var _selectedSports = '';
   static String _inPersonOrVirtual = '';
   static List<String> skillsList = [];
@@ -184,21 +186,30 @@ class HomescreenModal {
                                             items: oppurtunitiesList,
                                             controller: infoSelectionController,
                                             onChanged: (selected) {
+                                              selected = selected! as String;
                                               setModalState(() {
-                                                if (selected.toLowerCase() !=
+                                                if (selected!
+                                                            .toString()
+                                                            .toLowerCase() !=
                                                         'sports' ||
-                                                    selected.toLowerCase() !=
+                                                    selected
+                                                            .toString()
+                                                            .toLowerCase() !=
                                                         'tutoring' ||
-                                                    selected.toLowerCase() !=
+                                                    selected
+                                                            .toString()
+                                                            .toLowerCase() !=
                                                         'scholarship') {
-                                                  _selected = selected;
+                                                  _selected =
+                                                      selected as String;
                                                   typeOfOppurtunityText =
                                                       selected;
                                                 } else {
                                                   setModalState(() {
                                                     currentStepIndexter++;
                                                   });
-                                                  _selected = selected;
+                                                  _selected =
+                                                      selected as String;
                                                   typeOfOppurtunityText =
                                                       selected;
                                                 }
@@ -215,7 +226,8 @@ class HomescreenModal {
                                                 setModalState(() {
                                                   currentStepIndexter++;
                                                 });
-                                                _selectedSports = selected;
+                                                _selectedSports =
+                                                    selected as String;
                                               }),
                                         ] else if (_selected.toLowerCase() ==
                                                 'tutoring' ||
@@ -237,7 +249,8 @@ class HomescreenModal {
                                                 if (selected == 'Post-Grad') {
                                                   _selectedGrade = 'Post';
                                                 } else {
-                                                  _selectedGrade = selected;
+                                                  _selectedGrade =
+                                                      selected as String;
                                                 }
                                                 setModalState(() {
                                                   currentStepIndexter++;
@@ -276,7 +289,8 @@ class HomescreenModal {
                                               thirdInfoSelectionController,
                                           onChanged: (selected) {
                                             setModalState(() {
-                                              inPersonVirtualText = selected;
+                                              inPersonVirtualText =
+                                                  selected as String;
                                               currentStepIndexter++;
                                               _inPersonOrVirtual = selected;
                                             });
@@ -362,11 +376,8 @@ class HomescreenModal {
                                                         elevation: 0,
                                                         backgroundColor:
                                                             (const Color
-                                                                    .fromARGB(
-                                                                255,
-                                                                83,
-                                                                83,
-                                                                83)),
+                                                                .fromARGB(255,
+                                                                83, 83, 83)),
                                                         onPressed: () {
                                                           setModalState(() {
                                                             searchedItems[2]
@@ -426,7 +437,7 @@ class HomescreenModal {
           items: sportsList,
           controller: secondInfoSelectionController,
           onChanged: (selected) {
-            _selectedSports = selected;
+            _selectedSports = selected as String;
           });
     } else if (_selected.toLowerCase() == 'tutoring' ||
         _selected.toLowerCase() == 'scholarship') {
@@ -444,7 +455,7 @@ class HomescreenModal {
             if (selected == 'Post-Grad') {
               _selectedGrade = 'Post';
             } else {
-              _selectedGrade = selected;
+              _selectedGrade = selected as String;
             }
           });
     } else {

@@ -142,7 +142,7 @@ class OnboardingState extends State<Onboarding> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   elevation: 10,
-                  primary: Colors.blueGrey,
+                  // primary: Colors.blueGrey,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                   ),

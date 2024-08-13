@@ -137,7 +137,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                         bodyMaxLines: 2,
                         bodyTextOverflow: TextOverflow.fade,
                         graphicFit: BoxFit.contain,
-                        link: 'about:blank',
+                        link: 'https://www.coursera.org/',
                         linkPreviewStyle: LinkPreviewStyle.large,
                         removeElevation: true,
                         showBody: false,
@@ -156,8 +156,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                         elevation: 0,
                         backgroundColor: Colors.transparent,
                         onPressed: () {
-                          ref.set(givenLink,
-                              'https://github.com/ghpranav/link_preview_generator');
+                          ref.set(givenLink, 'https://www.coursera.org/');
                         },
                         child: Icon(
                           true == isBookmarked
@@ -205,8 +204,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                         bodyMaxLines: 2,
                         bodyTextOverflow: TextOverflow.fade,
                         graphicFit: BoxFit.contain,
-                        link:
-                            'https://github.com/ghpranav/link_preview_generator',
+                        link: 'https://www.coursera.org/',
                         linkPreviewStyle: LinkPreviewStyle.small,
                         removeElevation: true,
                         showGraphic: true),

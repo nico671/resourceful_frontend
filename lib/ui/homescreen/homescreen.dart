@@ -10,7 +10,7 @@ import '../profilescreen/profilescreen.dart';
 import 'components/homescreenmodal.dart';
 
 class Homescreen extends StatefulWidget {
-  const Homescreen({Key? key}) : super(key: key);
+  const Homescreen({super.key});
   @override
   State<StatefulWidget> createState() => _HomescreenState();
 }
@@ -137,8 +137,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                         bodyMaxLines: 2,
                         bodyTextOverflow: TextOverflow.fade,
                         graphicFit: BoxFit.contain,
-                        link:
-                            'https://github.com/ghpranav/link_preview_generator',
+                        link: 'about:blank',
                         linkPreviewStyle: LinkPreviewStyle.large,
                         removeElevation: true,
                         showBody: false,
@@ -246,14 +245,14 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
       padding: const EdgeInsets.only(top: 40.0),
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.blueGrey),
+          backgroundColor: WidgetStateProperty.all(Colors.blueGrey),
         ),
         onPressed: () {
           HomescreenModal.showSearchScreen(context);
         },
-        child: Row(
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Text('Search'),
             Icon(Icons.search_sharp),
           ],

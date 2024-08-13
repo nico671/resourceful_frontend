@@ -14,7 +14,6 @@ lib/src/generated_plugin_registrant.dart
 # If you don't generate documentation locally you can remove this line.
 doc/api/
 build/
-assets/
 .dart_tool/
 .idea/
 ios/

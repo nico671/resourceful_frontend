@@ -13,5 +13,12 @@ lib/src/generated_plugin_registrant.dart
 # Directory created by dartdoc
 # If you don't generate documentation locally you can remove this line.
 doc/api/
-
+build/
+assets/
+.dart_tool/
+.idea/
+ios/
+android/
+web/
+test/
 
